@@ -35,6 +35,7 @@ X_test = sc_X.transform(X_test)
 # Aplicar Kernel ACP
 from sklearn.decomposition import KernelPCA
 kpca = KernelPCA(n_components = 2, kernel = "rbf")
+#kernel{'linear', 'poly', 'rbf', 'sigmoid', 'cosine', 'precomputed'}, default='linear'
 X_train = kpca.fit_transform(X_train)
 X_test = kpca.transform(X_test)
 

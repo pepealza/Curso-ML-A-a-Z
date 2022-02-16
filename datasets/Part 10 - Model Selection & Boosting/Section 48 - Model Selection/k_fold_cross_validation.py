@@ -49,8 +49,8 @@ cm = confusion_matrix(y_test, y_pred)
 # Aplicar k-fold cross validation
 from sklearn.model_selection import cross_val_score
 accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)
-accuracies.mean()
-accuracies.std()
+accuracies_mean = accuracies.mean()
+accuracies_std = accuracies.std()
 
 # Representación gráfica de los resultados del algoritmo en el Conjunto de Entrenamiento
 from matplotlib.colors import ListedColormap

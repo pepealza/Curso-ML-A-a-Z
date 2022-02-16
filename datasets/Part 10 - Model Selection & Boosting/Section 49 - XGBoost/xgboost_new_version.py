@@ -32,7 +32,7 @@ ct = ColumnTransformer(
     [('one_hot_encoder', OneHotEncoder(categories='auto'), [2])],   
     remainder='passthrough'                        
 )
-X = np.array(ct.fit_transform(X), dtype=np.float)
+X = np.array(ct.fit_transform(X), dtype=float)
 X = X[:, 1:]
 
 
@@ -55,6 +55,6 @@ cm = confusion_matrix(y_test, y_pred)
 # Aplicar k-fold cross validation
 from sklearn.model_selection import cross_val_score
 accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)
-accuracies.mean()
-accuracies.std()
+accuracies_mean = accuracies.mean()
+accuracies_std = accuracies.std()
 

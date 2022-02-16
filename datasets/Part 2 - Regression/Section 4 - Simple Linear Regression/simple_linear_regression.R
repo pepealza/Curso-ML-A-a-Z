@@ -1,7 +1,8 @@
-# Regresi贸n Lineal Simple
+# Regresisi髇 Lineal Simple
 
 # Importar el dataset
-dataset = read.csv('Salary_Data.csv')
+datos<- read.csv("GitHub/Curso-ML-A-a-Z/datasets/Part 2 - Regression/Section 4 - Simple Linear Regression/Salary_Data.csv")
+
 #dataset = dataset[, 2:3]
 
 # Dividir los datos en conjunto de entrenamiento y conjunto de test
@@ -16,14 +17,14 @@ testing_set = subset(dataset, split == FALSE)
 # training_set[,2:3] = scale(training_set[,2:3])
 # testing_set[,2:3] = scale(testing_set[,2:3])
 
-# Ajustar el modelo de regresi贸n lineal simple con el conjunto de entrenamiento
+# Ajustar el modelo de regresi髇 lineal simple con el conjunto de entrenamiento
 regressor = lm(formula = Salary ~ YearsExperience,
                data = training_set)
 
 # Predecir resultados con el conjunto de test
 y_pred = predict(regressor, newdata = testing_set)
 
-# Visualizaci贸n de los resultados en el conjunto de entrenamiento
+# Visualizaci髇 de los resultados en el conjunto de entrenamiento
 #install.packages("ggplot2")
 library(ggplot2)
 ggplot() + 
@@ -32,19 +33,19 @@ ggplot() +
   geom_line(aes(x = training_set$YearsExperience, 
                 y = predict(regressor, newdata = training_set)),
             colour = "blue") +
-  ggtitle("Sueldo vs A帽os de Experiencia (Conjunto de Entrenamiento)") +
-  xlab("A帽os de Experiencia") +
+  ggtitle("Sueldo vs A駉s de Experiencia (Conjunto de Entrenamiento)") +
+  xlab("A駉s de Experiencia") +
   ylab("Sueldo (en $)")
 
-# Visualizaci贸n de los resultados en el conjunto de testing
+# Visualizaci髇 de los resultados en el conjunto de testing
 ggplot() + 
   geom_point(aes(x = testing_set$YearsExperience, y = testing_set$Salary),
              colour = "red") +
   geom_line(aes(x = training_set$YearsExperience, 
                 y = predict(regressor, newdata = training_set)),
             colour = "blue") +
-  ggtitle("Sueldo vs A帽os de Experiencia (Conjunto de Testing)") +
-  xlab("A帽os de Experiencia") +
+  ggtitle("Sueldo vs A駉s de Experiencia (Conjunto de Testing)") +
+  xlab("A駉s de Experiencia") +
   ylab("Sueldo (en $)")
 
 

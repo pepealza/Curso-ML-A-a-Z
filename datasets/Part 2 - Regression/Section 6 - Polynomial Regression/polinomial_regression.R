@@ -1,4 +1,4 @@
-# Regresi贸n Polin贸mica
+# Regresion Polinomica
 
 # Importar el dataset
 dataset = read.csv('Position_Salaries.csv')
@@ -17,18 +17,18 @@ dataset = dataset[, 2:3]
 # training_set[,2:3] = scale(training_set[,2:3])
 # testing_set[,2:3] = scale(testing_set[,2:3])
 
-# Ajustar Modelo de Regresi贸n Lineal con el Conjunto de Datos
+# Ajustar Modelo de Regresion Lineal con el Conjunto de Datos
 lin_reg = lm(formula = Salary ~ ., 
              data = dataset)
 
-# Ajustar Modelo de Regresi贸n Polin贸mica con el Conjunto de Datos
+# Ajustar Modelo de Regresion Polin髆ica con el Conjunto de Datos
 dataset$Level2 = dataset$Level^2
 dataset$Level3 = dataset$Level^3
 dataset$Level4 = dataset$Level^4
 poly_reg = lm(formula = Salary ~ .,
               data = dataset)
 
-# Visualizaci贸n del modelo lineal
+# Visualizacion del modelo lineal
 # install.packages("ggplot2")
 library(ggplot2)
 ggplot() +
@@ -36,12 +36,12 @@ ggplot() +
              color = "red") +
   geom_line(aes(x = dataset$Level, y = predict(lin_reg, newdata = dataset)),
             color = "blue") +
-  ggtitle("Predicci贸n lineal del suedlo en funci贸n del nivel del empleado") +
+  ggtitle("Predicci髇 lineal del sueldo en funci髇 del nivel del empleado") +
   xlab("Nivel del empleado") +
   ylab("Sueldo (en $)")
 
 
-# Visualizaci贸n del modelo polin贸mico
+# Visualizacion del modelo polinomico
 x_grid = seq(min(dataset$Level), max(dataset$Level), 0.1)
 ggplot() +
   geom_point(aes(x = dataset$Level , y = dataset$Salary),
@@ -52,14 +52,14 @@ ggplot() +
                                                              Level3 = x_grid^3,
                                                              Level4 = x_grid^4))),
             color = "blue") +
-  ggtitle("Predicci贸n polin贸mica del suedlo en funci贸n del nivel del empleado") +
+  ggtitle("Predicci髇 polin髆ica del suedlo en funci髇 del nivel del empleado") +
   xlab("Nivel del empleado") +
   ylab("Sueldo (en $)")
 
-# Predicci贸n de nuevos resultados con Regresi贸n Lineal
+# Prediccion de nuevos resultados con Regresion Lineal
 y_pred = predict(lin_reg, newdata = data.frame(Level = 6.5))
 
-# Predicci贸n de nuevos resultados con Regresi贸n Polin贸mica
+# Prediccion de nuevos resultados con Regresion Polinomica
 y_pred_poly = predict(poly_reg, newdata = data.frame(Level = 6.5,
                                                 Level2 = 6.5^2,
                                                 Level3 = 6.5^3,

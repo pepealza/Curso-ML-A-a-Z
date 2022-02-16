@@ -41,6 +41,8 @@ onehotencoder = ColumnTransformer(
     remainder='passthrough'                        
 )
 X = onehotencoder.fit_transform(X)
+
+# Evitar la colinealidad y quitar una variable
 X = X[:, 1:]
 
 # Dividir el data set en conjunto de entrenamiento y conjunto de testing
@@ -54,7 +56,7 @@ X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
 
-# Parte 2 - Construir la RNA
+########## Parte 2 - Construir la RNA ###########
 
 # Importar Keras y librerías adicionales
 import keras
@@ -89,3 +91,15 @@ y_pred = (y_pred>0.5)
 # Elaborar una matriz de confusión
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+
+################################################ FIN  ####################################
+
+#Classification method evaluation
+N = cm[0,0] + cm[0,1] + cm[1,0] + cm[1,1]
+Accuracy = (cm[0,0] + cm[1,1]) / N
+Precision = cm[1,1] /  (cm[1,1] + cm[0,1])
+Recall =  cm[1,1] /  (cm[1,1] + cm[1,0])
+F1Score = 2*Precision*Recall/(Precision+Recall)
+Especificidad  = cm[0,0] / (cm[0,0] + cm[0,1])
+

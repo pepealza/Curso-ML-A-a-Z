@@ -70,14 +70,12 @@ testing_dataset = test_datagen.flow_from_directory('dataset/test_set',
                                                 batch_size=32,
                                                 class_mode='binary')
 
-classifier.fit_generator(training_dataset,
-                        steps_per_epoch=8000,
-                        epochs=25,
-                        validation_data=testing_dataset,
-                        validation_steps=2000)
-
-
-
+# Esto cambio. Hay que actualizar 8000/32 y 2000/32
+classifier.fit(training_dataset,
+            steps_per_epoch=int(8000/32),
+            epochs=25,
+            validation_data=testing_dataset,
+            validation_steps=int(2000/32))
 
 
 

@@ -37,16 +37,16 @@ from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features = 1500)
 X = cv.fit_transform(corpus).toarray()
 y = dataset.iloc[:, 1].values
-
+###############################################AQUI PEGAMOS EL METODO DE CLASIFICACION#####
 
 # Dividir el data set en conjunto de entrenamiento y conjunto de testing
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
 
-# Ajustar el clasificador en el Conjunto de Entrenamiento
-from sklearn.naive_bayes import GaussianNB
-classifier = GaussianNB()
+# Ajustar el clasificador  Random Forest en el Conjunto de Entrenamiento
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier(n_estimators = 10, criterion = "entropy", random_state = 0)
 classifier.fit(X_train, y_train)
 
 # Predicción de los resultados con el Conjunto de Testing
@@ -56,5 +56,18 @@ y_pred  = classifier.predict(X_test)
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
 
-print(cm)
-(55+91)/200
+
+################################################ FIN  ####################################
+
+#Classification method evaluation
+N = cm[0,0] + cm[0,1] + cm[1,0] + cm[1,1]
+Accuracy = (cm[0,0] + cm[1,1]) / N
+Precision = cm[1,1] /  (cm[1,1] + cm[0,1])
+Recall =  cm[1,1] /  (cm[1,1] + cm[1,0])
+F1Score = 2*Precision*Recall/(Precision+Recall)
+Especificidad  = cm[0,0] / (cm[0,0] + cm[0,1])
+
+
+
+
+

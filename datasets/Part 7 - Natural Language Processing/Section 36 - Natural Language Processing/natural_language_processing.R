@@ -26,7 +26,7 @@ dtm = removeSparseTerms(dtm, 0.999)
 dataset = as.data.frame(as.matrix(dtm))
 dataset$Liked = dataset_original$Liked
 
-# Codificar la variable de clasificaciÃ³n como factor
+# Codificar la variable de clasificación como factor
 dataset$Liked = factor(dataset$Liked, levels = c(0,1))
 
 # Dividir los datos en conjunto de entrenamiento y conjunto de test
@@ -37,6 +37,8 @@ split = sample.split(dataset$Liked, SplitRatio = 0.80)
 training_set = subset(dataset, split == TRUE)
 testing_set = subset(dataset, split == FALSE)
 
+################################## METODO DE CLASIFICACION ############
+
 # Ajustar el Random Forest con el conjunto de entrenamiento.
 #install.packages("randomForest")
 library(randomForest)
@@ -44,10 +46,21 @@ classifier = randomForest(x = training_set[,-692],
                           y = training_set$Liked,
                           ntree = 10)
 
-# PredicciÃ³n de los resultados con el conjunto de testing
+# Predicción de los resultados con el conjunto de testing
 y_pred = predict(classifier, newdata = testing_set[,-692])
 
-# Crear la matriz de confusiÃ³n
+# Crear la matriz de confusión
 cm = table(testing_set[, 692], y_pred)
+
+################################## FIN CLASIFICACION #################
+
+
+#Classification method evaluation
+N = cm[1,1] + cm[1,2] + cm[2,1] + cm[2,2]
+Accuracy = (cm[1,1] + cm[2,2]) / N
+Precision = cm[2,2] /  (cm[2,2] + cm[1,2])
+Recall =  cm[2,2] /  (cm[2,2] + cm[2,1])
+F1Score = 2*Precision*Recall/(Precision+Recall)
+Especificidad  = cm[1,1] / (cm[1,1] + cm[1,2])
 
 
